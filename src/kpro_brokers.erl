@@ -140,6 +140,8 @@ get_api_vsn_range(Connection, API) ->
 -spec discover_partition_leader(connection(), topic(),partition(),
                                 timeout()) -> {ok, endpoint()} | {error, any()}.
 discover_partition_leader(Connection, Topic, Partition, Timeout) ->
+  error_logger:info_msg("[debug] kpro_brokers:discover_partition_leader/4 with Connection=[~p], Topic=[~p], Partition=[~p], Timeout=[~p]",
+                        [kpro_connection:get_endpoint(Connection), Topic, Partition, Timeout]),
   FL =
     [ fun() -> get_api_vsn_range(Connection, metadata) end
     , fun({_, Vsn}) ->
